@@ -29,26 +29,25 @@ else:
         ("human", "Book a flight, train, bus, or car travel from {source} to {destination}.")
     ])
 
-    # Initialize the chat model
     chat_model = ChatGoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=gemini_API_KEY)
 
-    # Define the processing pipeline
+    
     parser = StrOutputParser()
 
-    # Streamlit UI Inputs
+    
     source = st.text_input("Enter Source Location:")
     destination = st.text_input("Enter Destination Location:")
 
     if st.button("Estimate Cost"):
         if source and destination:
             try:
-                # Format prompt properly
+                
                 formatted_prompt = chat_template.format_messages(source=source, destination=destination)
 
-                # Invoke the model with user input
+            
                 response = chat_model.invoke(formatted_prompt)
 
-                # Parse and display the response
+                
                 parsed_response = parser.parse(response)
                 st.write(parsed_response)
 
